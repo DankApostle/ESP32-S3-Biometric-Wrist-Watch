@@ -278,30 +278,31 @@ void loop(){
         HRmeasuring = false;
         B2Counter = 0;
         B1Counter = 0;
+
+        //Save previous measurements by moving them down 1 spot
+        for(int i=19; i>0; i--){
+          for(int j=0; j<8; j++){
+            HRhistory[i][j] = HRhistory[i-1][j];
+          }
+        }
+
+        //Save the new measurement on 1st spot
+        
+        HRhistory[0][0] = heartRate;
+        HRhistory[0][1] = spo2;
+        HRhistory[0][2] = hours;
+        HRhistory[0][3] = minutes;
+        HRhistory[0][4] = seconds;
+        HRhistory[0][5] = date;
+        HRhistory[0][6] = month;
+        HRhistory[0][7] = year;
+
         display.fillScreen(SSD1306_BLACK);
         display.display();
         esp_deep_sleep_start(); 
       }
       
     }
-
-    //Save previous measurements by moving them down 1 spot
-      for(int i=19; i>0; i--){
-        for(int j=0; j<8; j++){
-          HRhistory[i][j] = HRhistory[i-1][j];
-        }
-      }
-
-      //Save the new measurement on 1st spot
-      
-      HRhistory[0][0] = heartRate;
-      HRhistory[0][1] = spo2;
-      HRhistory[0][2] = hours;
-      HRhistory[0][3] = minutes;
-      HRhistory[0][4] = seconds;
-      HRhistory[0][5] = date;
-      HRhistory[0][6] = month;
-      HRhistory[0][7] = year;
 
   }
 
